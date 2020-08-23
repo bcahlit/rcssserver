@@ -234,7 +234,10 @@ SerializerMonitorStdv3::serializePlayerPos( std::ostream & os,
        << ' ' << Quantize( player.vel().x, PREC )
        << ' ' << Quantize( player.vel().y, PREC )
        << ' ' << Quantize( Rad2Deg( player.angleBodyCommitted() ), DPREC )
-       << ' ' << Quantize( Rad2Deg( player.angleNeckCommitted() ), DPREC );
+       << ' ' << Quantize( Rad2Deg( player.angleNeckCommitted() ), DPREC )
+       << ' ' << Quantize( player.ballCollide(), PREC )
+       << ' ' << Quantize( player.playerCollide(), PREC )
+       << ' ' << Quantize( player.postCollide(), PREC );
 }
 
 void
