@@ -224,6 +224,7 @@ Logger::close()
     closeGameLog();
     closeTextLog();
     closeKawayLog();
+    closeHFOLog();
 }
 
 bool
@@ -729,6 +730,35 @@ Logger::renameLogs()
             std::cerr << __FILE__ << ": " << __LINE__
                       << ": error renaming " << M_kaway_log_name << std::endl;
         }
+    }
+    
+    //
+    // rename hfo log
+    //
+    if ( M_hfo_log.is_open() 
+         && ! ServerParam::instance().hfoLogFixed() )
+    {
+        std::string newname = ServerParam::instance().hfoLogDir();
+        if ( *newname.rbegin() != '/' )
+        {
+            newname += '/';
+        }
+        if ( ServerParam::instance().hfoLogDated() )
+        {
+            newname += time_str;
+        }
+        newname += team_name_score;
+        newname += Logger::DEF_HFO_SUFFIX;
+
+        closeHFOLog();
+
+        if( std::rename( M_hfo_log_name.c_str(),
+                         newname.c_str() ) )
+        {
+            std::cerr << __FILE__ << ": " << __LINE__
+                      << ": error renaming " << M_kaway_log_name << std::endl;
+        }
+        M_hfo_log_name = newname
     }
 
 }
