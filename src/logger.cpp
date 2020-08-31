@@ -758,7 +758,7 @@ Logger::renameLogs()
             std::cerr << __FILE__ << ": " << __LINE__
                       << ": error renaming " << M_kaway_log_name << std::endl;
         }
-        M_hfo_log_name = newname
+        M_hfo_log_name = newname;
     }
 
 }
